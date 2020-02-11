@@ -1,6 +1,6 @@
 # NAME
 
-Minion::Backend::API - API Rest backend
+[Minion::Backend::API](https://metacpan.org/pod/Minion::Backend::API) - API Rest backend
 
 # SYNOPSIS
 
@@ -18,14 +18,14 @@ Minion::Backend::API - API Rest backend
     
 # DESCRIPTION
 
-L<Minion::Backend::API> is a backend for L<Minion> based on L<Mojo::UserAgent>.
-This module need be used together with the module L<Mojolicious::Plugin::Minion::API>,
-access it to see manual.
+[Minion::Backend::API](https://metacpan.org/pod/Minion::Backend::API) is a backend for [Minion](https://metacpan.org/pod/Minion)
+based on [Mojo::UserAgent](https://metacpan.org/pod/Mojo::UserAgent). This module need be used together with the module
+[Mojolicious::Plugin::Minion::API](https://metacpan.org/pod/Mojolicious::Plugin::Minion::API), access it to see manual.
 
 # ATTRIBUTES
 
-L<Minion::Backend::API> inherits all attributes from L<Minion::Backend> and
-implements the following new ones.
+[Minion::Backend::API](https://metacpan.org/pod/Minion::Backend::API) inherits all attributes from
+[Minion::Backend](https://metacpan.org/pod/Minion::Backend) and implements the following new ones.
 
 ## url
 
@@ -39,11 +39,15 @@ implements the following new ones.
 
 # SEE MORE OPTIONS
 
-L<Minion::Backend::Pg>
+[Minion::Backend::Pg](https://metacpan.org/pod/Minion::Backend::Pg)
 
 # SEE ALSO
 
-L<Mojolicious::Plugin::Minion::API>, L<Mojo::UserAgent>, L<Minion>, L<Mojolicious::Guides>, L<https://mojolicious.org>.
+[Mojolicious::Plugin::Minion::API](https://metacpan.org/pod/Mojolicious::Plugin::Minion::API),
+[Mojo::UserAgent](https://metacpan.org/pod/Mojo::UserAgent),
+[Minion](https://metacpan.org/pod/Minion),
+[Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides),
+[https://mojolicious.org].
 
 # AUTHOR
 
