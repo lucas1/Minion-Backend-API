@@ -47,7 +47,7 @@ based on [Mojo::UserAgent](https://metacpan.org/pod/Mojo::UserAgent). This modul
 [Mojo::UserAgent](https://metacpan.org/pod/Mojo::UserAgent),
 [Minion](https://metacpan.org/pod/Minion),
 [Mojolicious::Guides](https://metacpan.org/pod/Mojolicious::Guides),
-[https://mojolicious.org].
+https://mojolicious.org.
 
 # AUTHOR
 
