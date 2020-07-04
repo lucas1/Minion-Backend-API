@@ -4,7 +4,7 @@ use Mojo::Base 'Minion::Backend';
 use Mojo::UserAgent;
 use Carp 'croak';
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 has 'ua';
 has 'url';
