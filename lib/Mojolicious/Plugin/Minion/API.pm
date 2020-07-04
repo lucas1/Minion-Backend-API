@@ -268,7 +268,7 @@ sub _render {
 
 =head1 NAME
 
-Mojolicious::Plugin::Minion::API
+Mojolicious::Plugin::Minion::API - Plugin to receive requests from Minion::Backend::API
 
 =head1 SYNOPSIS
 
