@@ -34,14 +34,14 @@
          "requires" : {
             "Carp" : "0",
             "Minion" : "0",
-            "Mojolicious" : "0",
+            "Mojolicious" : "7.13",
             "perl" : "5.010001"
          }
       },
       "test" : {
          "requires" : {
             "Minion" : "0",
-            "Mojolicious" : "0",
+            "Mojolicious" : "7.13",
             "Test::More" : "0"
          }
       }
