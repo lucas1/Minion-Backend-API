@@ -1,4 +1,4 @@
-use Test::More tests => 81;
+use Test::More tests => 105;
 use Test::Mojo;
 use lib './t';
 
@@ -16,6 +16,11 @@ $t->post_ok('/dequeue' => json => {})
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 2});
   
+$t->post_ok('/dispatch-schedules' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 21});
+
 $t->post_ok('/enqueue' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
@@ -45,6 +50,11 @@ $t->get_ok('/list-locks' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 8});
+
+$t->get_ok('/list-schedules' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 22});
   
 $t->get_ok('/list-workers' => json => {})
   ->status_is(200)
@@ -60,6 +70,11 @@ $t->patch_ok('/note' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 11});
+
+$t->patch_ok('/pause-schedule' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 23});
   
 $t->patch_ok('/receive' => json => {})
   ->status_is(200)
@@ -85,11 +100,21 @@ $t->post_ok('/reset' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 16});
-  
+
+$t->patch_ok('/resume-schedule' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 24});
+
 $t->put_ok('/retry-job' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 17});
+  
+$t->post_ok('/schedule' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 25});
   
 $t->get_ok('/stats' => json => {})
   ->status_is(200)
@@ -105,5 +130,10 @@ $t->delete_ok('/unregister-worker' => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 20});  
+
+$t->delete_ok('/unschedule' => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 26});
 
 done_testing();
