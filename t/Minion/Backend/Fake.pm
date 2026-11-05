@@ -15,6 +15,10 @@ sub dequeue {
     return 2;
 }
 
+sub dispatch_schedules {
+    return 21;
+}
+
 sub enqueue {
     return 3;
 }
@@ -39,6 +43,10 @@ sub list_locks {
     return 8;
 }
 
+sub list_schedules {
+    return 22;
+}
+
 sub list_workers {
     return 9;
 }
@@ -49,6 +57,10 @@ sub lock {
 
 sub note {
     return 11;
+}
+
+sub pause_schedule {
+    return 23;
 }
 
 sub receive {
@@ -71,8 +83,16 @@ sub reset {
     return 16;
 }
 
+sub resume_schedule {
+    return 24;
+}
+
 sub retry_job {
     return 17;
+}
+
+sub schedule {
+    return 25;
 }
 
 sub stats {
@@ -85,6 +105,10 @@ sub unlock {
 
 sub unregister_worker {
     return 20;
+}
+
+sub unschedule {
+    return 26;
 }
 
 1;

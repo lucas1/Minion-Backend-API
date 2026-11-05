@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Plugin';
 use List::Util qw/first/;
 use Carp 'croak';
 
-our $VERSION = 1.00;
+our $VERSION = 1.01;
 
 sub register {
     my ($self, $app, $config) = @_;
@@ -104,6 +104,13 @@ sub register {
         &_render($c, $app->backend->dequeue($id, $wait, $options));
     });
 
+    # dispatch_schedules
+    $api->post('/dispatch-schedules' => sub {
+        my $c = shift;
+
+        &_render($c, $app->backend->dispatch_schedules);
+    });
+
     # enqueue
     $api->post('/enqueue' => sub {
         my $c = shift;
@@ -166,6 +173,17 @@ sub register {
         &_render($c, $app->backend->list_locks($offset, $limit, $options));
     });
 
+    # list_schedules
+    $api->get('/list-schedules' => sub {
+        my $c = shift;
+
+        my $offset  = $c->req->json->{offset};
+        my $limit   = $c->req->json->{limit};
+        my $options = $c->req->json->{options};
+
+        &_render($c, $app->backend->list_schedules($offset, $limit, $options));
+    });
+
     # list_workers
     $api->get('/list-workers' => sub {
         my $c = shift;
@@ -196,6 +214,15 @@ sub register {
         my $merge = $c->req->json->{merge};
 
         &_render($c, $app->backend->note($id, $merge));
+    });
+
+    # pause_schedule
+    $api->patch('/pause-schedule' => sub {
+        my $c = shift;
+
+        my $name    = $c->req->json->{name};
+
+        &_render($c, $app->backend->pause_schedule($name));
     });
 
     # receive
@@ -242,6 +269,15 @@ sub register {
         &_render($c, $app->backend->reset($options));
     });
 
+    # resume_schedule
+    $api->patch('/resume-schedule' => sub {
+        my $c = shift;
+
+        my $name    = $c->req->json->{name};
+
+        &_render($c, $app->backend->resume_schedule($name));
+    });
+
     # retry_job
     $api->put('/retry-job' => sub {
         my $c = shift;
@@ -251,6 +287,19 @@ sub register {
         my $options = $c->req->json->{options};
 
         &_render($c, $app->backend->retry_job($id, $retries, $options));
+    });
+
+    # schedule
+    $api->post('/schedule' => sub {
+        my $c = shift;
+
+        my $name    = $c->req->json->{name};
+        my $cron    = $c->req->json->{cron};
+        my $task    = $c->req->json->{task};
+        my $args    = $c->req->json->{args};
+        my $options = $c->req->json->{options};
+
+        &_render($c, $app->backend->schedule($name, $cron, $task, $args, $options));
     });
 
     # stats
@@ -276,6 +325,15 @@ sub register {
         my $id = $c->req->json->{id};
 
         &_render($c, $app->backend->unregister_worker($id));
+    });
+
+    # unschedule
+    $api->delete('/unschedule' => sub {
+        my $c = shift;
+
+        my $name    = $c->req->json->{name};
+
+        &_render($c, $app->backend->unschedule($name));
     });
 }
 

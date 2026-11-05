@@ -1,3 +1,6 @@
+1.01 2026-11-04T15:46:00Z
+    - Added support for Minion 12 schedules.
+
 1.00 2021-06-27T11:24:00Z
     - Added basic authentication.
     - Solved version in files of tests.

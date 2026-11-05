@@ -1,4 +1,4 @@
-use Test::More tests => 42;
+use Test::More tests => 54;
 use lib './t';
 
 use_ok('Minion::Backend::Fake');
@@ -12,6 +12,9 @@ is($fake->broadcast, 1, 'Test method broadcast');
 
 can_ok($fake, 'dequeue');
 is($fake->dequeue, 2, 'Test method dequeue');
+
+can_ok($fake, 'dispatch_schedules');
+is($fake->dispatch_schedules, 21, 'Test method dispatch_schedules');
 
 can_ok($fake, 'enqueue');
 is($fake->enqueue, 3, 'Test method enqueue');
@@ -31,6 +34,9 @@ is($fake->list_jobs, 7, 'Test method list_jobs');
 can_ok($fake, 'list_locks');
 is($fake->list_locks, 8, 'Test method list_locks');
 
+can_ok($fake, 'list_schedules');
+is($fake->list_schedules, 22, 'Test method list_schedules');
+
 can_ok($fake, 'list_workers');
 is($fake->list_workers, 9, 'Test method list_workers');
 
@@ -39,6 +45,9 @@ is($fake->lock, 10, 'Test method lock');
 
 can_ok($fake, 'note');
 is($fake->note, 11, 'Test method note');
+
+can_ok($fake, 'pause_schedule');
+is($fake->pause_schedule, 23, 'Test method pause_schedule');
 
 can_ok($fake, 'receive');
 is($fake->receive, 12, 'Test method receive');
@@ -55,8 +64,14 @@ is($fake->repair, 15, 'Test method repair');
 can_ok($fake, 'reset');
 is($fake->reset, 16, 'Test method reset');
 
+can_ok($fake, 'resume_schedule');
+is($fake->resume_schedule, 24, 'Test method resume_schedule');
+
 can_ok($fake, 'retry_job');
 is($fake->retry_job, 17, 'Test method retry_job');
+
+can_ok($fake, 'schedule');
+is($fake->schedule, 25, 'Test method schedule');
 
 can_ok($fake, 'stats');
 is($fake->stats, 18, 'Test method stats');
@@ -66,5 +81,8 @@ is($fake->unlock, 19, 'Test method unlock');
 
 can_ok($fake, 'unregister_worker');
 is($fake->unregister_worker, 20, 'Test method unregister_worker');
+
+can_ok($fake, 'unschedule');
+is($fake->unschedule, 26, 'Test method unschedule');
 
 done_testing();

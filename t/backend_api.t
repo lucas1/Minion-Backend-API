@@ -1,4 +1,4 @@
-use Test::More tests => 41;
+use Test::More tests => 53;
 use Mojolicious::Lite;
 
 put '/broadcast' => sub {    
@@ -15,6 +15,15 @@ post '/dequeue' => sub {
         json => {
             success => 1,
             result => 2
+        }
+    );
+};
+
+post '/dispatch-schedules' => sub {
+    shift->render(
+        json => {
+            success => 1,
+            result => 21
         }
     );
 };
@@ -73,6 +82,15 @@ get '/list-locks' => sub {
     );
 };
 
+get '/list-schedules' => sub {    
+    shift->render(
+        json => {
+            success => 1,
+            result => 22
+        }
+    );
+};
+
 get '/list-workers' => sub {    
     shift->render(
         json => {
@@ -96,6 +114,15 @@ patch '/note' => sub {
         json => {
             success => 1,
             result => 11
+        }
+    );
+};
+
+patch '/pause-schedule' => sub {    
+    shift->render(
+        json => {
+            success => 1,
+            result => 23
         }
     );
 };
@@ -145,11 +172,29 @@ post '/reset' => sub {
     );
 };
 
+patch '/resume-schedule' => sub {    
+    shift->render(
+        json => {
+            success => 1,
+            result => 24
+        }
+    );
+};
+
 put '/retry-job' => sub {    
     shift->render(
         json => {
             success => 1,
             result => 17
+        }
+    );
+};
+
+post '/schedule' => sub {    
+    shift->render(
+        json => {
+            success => 1,
+            result => 25
         }
     );
 };
@@ -181,6 +226,15 @@ del '/unregister-worker' => sub {
     );
 };
 
+del '/unschedule' => sub {    
+    shift->render(
+        json => {
+            success => 1,
+            result => 26
+        }
+    );
+};
+
 use_ok('Minion::Backend::API');
 
 my $api = Minion::Backend::API->new('');
@@ -192,6 +246,9 @@ is($api->broadcast, 1, 'Test request broadcast');
 
 can_ok($api, 'dequeue');
 eval{ is($api->dequeue, 2, 'Test request dequeue') };
+
+can_ok($api, 'dispatch_schedules');
+is($api->dispatch_schedules, 21, 'Test request dispatch_schedules');
 
 can_ok($api, 'enqueue');
 is($api->enqueue, 3, 'Test request enqueue');
@@ -211,6 +268,9 @@ is($api->list_jobs, 7, 'Test request list_jobs');
 can_ok($api, 'list_locks');
 is($api->list_locks, 8, 'Test request list_locks');
 
+can_ok($api, 'list_schedules');
+is($api->list_schedules, 22, 'Test request list_schedules');
+
 can_ok($api, 'list_workers');
 is($api->list_workers, 9, 'Test request list_workers');
 
@@ -219,6 +279,9 @@ is($api->lock, 10, 'Test request lock');
 
 can_ok($api, 'note');
 is($api->note, 11, 'Test request note');
+
+can_ok($api, 'pause_schedule');
+is($api->pause_schedule, 23, 'Test request pause_schedule');
 
 can_ok($api, 'receive');
 is($api->receive, 12, 'Test request receive');
@@ -235,8 +298,14 @@ is($api->repair, 15, 'Test request repair');
 can_ok($api, 'reset');
 is($api->reset, 16, 'Test request reset');
 
+can_ok($api, 'resume_schedule');
+is($api->resume_schedule, 24, 'Test request resume_schedule');
+
 can_ok($api, 'retry_job');
 is($api->retry_job, 17, 'Test request retry_job');
+
+can_ok($api, 'schedule');
+is($api->schedule, 25, 'Test request schedule');
 
 can_ok($api, 'stats');
 is($api->stats, 18, 'Test request stats');
@@ -246,5 +315,8 @@ is($api->unlock, 19, 'Test request unlock');
 
 can_ok($api, 'unregister_worker');
 is($api->unregister_worker, 20, 'Test request unregister_worker');
+
+can_ok($api, 'unschedule');
+is($api->unschedule, 26, 'Test request unschedule');
 
 done_testing();

@@ -46,6 +46,14 @@ sub dequeue {
     $self->_result($res);
 }
 
+sub dispatch_schedules {
+    my $self = shift;
+
+    my $res = $self->ua->post($self->_url . '/dispatch-schedules');
+
+    $self->_result($res);
+}
+
 sub enqueue {
     my ($self, $task, $args, $options) = (shift, shift, shift || [], shift || {});
 
@@ -129,6 +137,21 @@ sub list_locks {
     $self->_result($res);
 }
 
+sub list_schedules {
+    my ($self, $offset, $limit, $options) = @_;
+
+    my $res = $self->ua->get(
+        $self->_url . '/list-schedules'
+        => json => {
+            offset  => $offset,
+            limit   => $limit,
+            options => $options
+        }
+    );
+
+    $self->_result($res);
+}
+
 sub list_workers {
     my ($self, $offset, $limit, $options) = @_;
 
@@ -191,6 +214,19 @@ sub note {
         => json => {
             id    => $id,
             merge => $merge
+        }
+    );
+
+    $self->_result($res);
+}
+
+sub pause_schedule {
+    my ($self, $name) = @_;
+
+    my $res = $self->ua->patch(
+        $self->_url . '/pause-schedule'
+        => json => {
+            name => $name
         }
     );
 
@@ -260,6 +296,19 @@ sub reset {
     $self->_result($res);
 }
 
+sub resume_schedule {
+    my ($self, $name) = @_;
+
+    my $res = $self->ua->patch(
+        $self->_url . '/resume-schedule'
+        => json => {
+            name => $name
+        }
+    );
+
+    $self->_result($res);
+}
+
 sub retry_job {
     my ($self, $id, $retries, $options) = (shift, shift, shift, shift || {});
 
@@ -268,6 +317,23 @@ sub retry_job {
         => json => {
             id      => $id,
             retries => $retries,
+            options => $options
+        }
+    );
+
+    $self->_result($res);
+}
+
+sub schedule {
+    my ($self, $name, $cron, $task, $args, $options) = (shift, shift, shift, shift, shift || [], shift || {});
+
+    my $res = $self->ua->post(
+        $self->_url . '/schedule'
+        => json => {
+            name    => $name,
+            cron    => $cron,
+            task    => $task,
+            args    => $args,
             options => $options
         }
     );
@@ -303,6 +369,19 @@ sub unregister_worker {
         $self->_url . '/unregister-worker'
         => json => {
             id => $id
+        }
+    );
+
+    $self->_result($res);
+}
+
+sub unschedule {
+    my ($self, $name) = @_;
+
+    my $res = $self->ua->delete(
+        $self->_url . '/unschedule'
+        => json => {
+            name => $name
         }
     );
 

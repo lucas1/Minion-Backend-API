@@ -1,4 +1,4 @@
-use Test::More tests => 81;
+use Test::More tests => 105;
 use Test::Mojo;
 use Mojo::URL;
 use lib './t';
@@ -16,6 +16,11 @@ $t->post_ok(url('/dequeue') => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 2});
+
+$t->post_ok(url('/dispatch-schedules') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 21});
 
 $t->post_ok(url('/enqueue') => json => {})
   ->status_is(200)
@@ -47,6 +52,11 @@ $t->get_ok(url('/list-locks') => json => {})
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 8});
 
+$t->get_ok(url('/list-schedules') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 22});
+
 $t->get_ok(url('/list-workers') => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
@@ -61,6 +71,11 @@ $t->patch_ok(url('/note') => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 11});
+
+$t->patch_ok(url('/pause-schedule') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 23});
 
 $t->patch_ok(url('/receive') => json => {})
   ->status_is(200)
@@ -87,10 +102,20 @@ $t->post_ok(url('/reset') => json => {})
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 16});
 
+$t->patch_ok(url('/resume-schedule') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 24});
+
 $t->put_ok(url('/retry-job') => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 17});
+
+$t->post_ok(url('/schedule') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 25});
 
 $t->get_ok(url('/stats') => json => {})
   ->status_is(200)
@@ -106,6 +131,11 @@ $t->delete_ok(url('/unregister-worker') => json => {})
   ->status_is(200)
   ->content_type_like(qr!application/json!)
   ->json_is({success => 1, result => 20});
+
+$t->delete_ok(url('/unschedule') => json => {})
+  ->status_is(200)
+  ->content_type_like(qr!application/json!)
+  ->json_is({success => 1, result => 26});
 
 sub url {
     my $path_info = shift;
